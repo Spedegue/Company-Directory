@@ -32,6 +32,8 @@ const displayResults = (results) => {
   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
   </svg>`;
   $('#cardDisplay').html('');
+  $('#resultsTable').html('');
+
   results.forEach((result) => {
     const {
       firstName,
@@ -43,6 +45,8 @@ const displayResults = (results) => {
       jobTitle,
       id,
     } = result;
+    const editButton = `<button class="btn btn-outline-primary btn-sm badge edit-btn card-btn position-absolute" onclick="editEntryModal('${firstName}', '${lastName}','${email}', '${departmentID}', '${jobTitle}', ${id})">${editIcon}</button>`;
+    const deleteButton = `<button class="btn btn-sm btn-outline-danger badge delete-btn card-btn position-absolute" onclick="deletePersonnel('${firstName} ${lastName}', ${id})">${deleteIcon}</button>`;
     //Remove this line for production
     const title = jobTitle ? jobTitle : 'Head Of ' + department;
     const card = `<div class="col mb-4 entry-card" id=card${id}>
@@ -51,17 +55,31 @@ const displayResults = (results) => {
           <h4 class="capital">${firstName} ${lastName}</h5>
           <div class="card-div">
           <h6 class="capital">${title} </h6>
-          
           <p class="capital"><i>${email}</i></p>
           <p class="upper">${department}</p>
           <p class="upper">${location} </p>
           </div>
-          <button class="btn btn-outline-primary btn-sm badge edit-btn card-btn" onclick="editEntryModal('${firstName}', '${lastName}','${email}', '${departmentID}', '${jobTitle}', ${id})">${editIcon}</button>
-          <button class="btn btn-sm btn-outline-danger badge delete-btn card-btn" onclick="deletePersonnel('${firstName} ${lastName}', ${id})">${deleteIcon}</button>
-          
+          ${editButton}
+          ${deleteButton}
         </div>
       </div>
     </div>`;
+
+    const tableRow = `<tr>
+    <td>${firstName}</td>
+    <td>${lastName}</td>
+    <td class="mobile-hide">${title}</td>
+    <td class="mobile-hide">${email}</td>
+    <td class="mobile-hide">${department}</td>
+    <td class="mobile-hide">${location}</td>
+    <td>
+   <button class="btn btn-outline-primary btn-sm badge edit-btn card-btn" onclick="editEntryModal('${firstName}', '${lastName}','${email}', '${departmentID}', '${jobTitle}', ${id})">${editIcon}</button>
+ <button class="btn btn-sm btn-outline-danger badge delete-btn card-btn " onclick="deletePersonnel('${firstName} ${lastName}', ${id})">${deleteIcon}</button>
+    
+    </td>
+    </tr>`;
+
+    $('#resultsTable').append(tableRow);
     $('#cardDisplay').append(card);
   });
 };
@@ -552,9 +570,10 @@ $(function () {
     );
   });
 
-  // $('#tableSearch').on('keyup', function () {
-  //   table.search(this.value).draw();
-  // });
+  $('#tableToggle').click(() => {
+    $('#tableWrapper').toggle();
+    $('#cardDisplay').slideToggle(300);
+  });
 
   // $(document).on('click', '.entry-card', function () {
   //   console.log('click');

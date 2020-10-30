@@ -152,7 +152,6 @@ th {
 }
 
 .card-btn {
-  position: absolute;
   bottom: 15px;
 }
 
@@ -189,11 +188,19 @@ th {
   font-size: 0.75em;
 }
 
+.table-head {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#tableWrapper {
+  display: none;
+}
+
 @media (max-width: 400px) {
-  .card-div {
+  .mobile-hide,
+  thead {
     display: none;
-  }
-  .card-body h4 {
-    padding: 20px;
   }
 }

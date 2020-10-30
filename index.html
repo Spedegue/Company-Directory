@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./libs/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+
+    <title>Company Directory</title>
+  </head>
+
+  <body>
+    <nav
+      class="navbar navbar-dark sticky-top bg-info flex-md-nowrap p-1 shadow"
+    >
+      <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#"
+        ><img src="./images/mysqlogo.png" alt="company logo" id="logo"
+      /></a>
+      <button
+        class="navbar-toggler position-absolute d-md-none collapsed"
+        type="button"
+        data-toggle="collapse"
+        data-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <input
+        class="form-control form-control-dark w-75 ml-auto mr-0"
+        type="text"
+        placeholder="Search"
+        aria-label="Search"
+        id="tableSearch"
+      />
+      <button class="ml-0 mr-auto btn btn-secondary btn-sm" id="searchBtn">
+        Search
+      </button>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav
+          id="sidebarMenu"
+          class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+        >
+          <div class="sidebar-sticky pt-4 p-1">
+            <a
+              data-toggle="collapse"
+              href="#filter-form"
+              role="button"
+              class="collapsed"
+            >
+              <h6
+                class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+              >
+                Filter Results<svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-chevron-down"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </h6>
+            </a>
+            <form class="collapse show" id="filter-form">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-dark ml-3 mt-3 badge"
+                id="selectAllBtn"
+              >
+                Select All
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-dark ml-3 mt-3 badge"
+                id="deselectAllBtn"
+              >
+                Deselect All
+              </button>
+              <a
+                class="sidebar-subheading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted collapsed"
+                data-toggle="collapse"
+                href="#location-filter-box"
+                role="button"
+              >
+                Location
+                <svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-chevron-down"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </a>
+
+              <div class="collapse" id="location-filter-box">
+                <fieldset class="form-check" id="locationFilters"></fieldset>
+              </div>
+
+              <a
+                class="sidebar-subheading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted collapsed"
+                data-toggle="collapse"
+                href="#department-filter-box"
+                role="button"
+                >Department
+                <svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-chevron-down"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </a>
+
+              <div class="collapse" id="department-filter-box">
+                <fieldset class="form-check" id="departmentFilters"></fieldset>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-primary ml-3 mt-3"
+                id="filterBtn"
+              >
+                Apply
+              </button>
+            </form>
+            <a
+              data-toggle="collapse"
+              href="#create-buttons"
+              role="button"
+              class="collapsed"
+            >
+              <h6
+                class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+              >
+                Add New<svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-chevron-down"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </h6>
+            </a>
+            <div id="create-buttons" class="collapse">
+              <button
+                type="button"
+                class="btn btn-outline-dark w-100 mt-3"
+                id="addNewEntryBtn"
+              >
+                Add New Staff Member
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-dark w-100 mt-3"
+                id="addNewLocationBtn"
+              >
+                Add New Location
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-dark w-100 mt-3"
+                id="addNewDepartmentBtn"
+              >
+                Add New Department
+              </button>
+            </div>
+
+            <a
+              data-toggle="collapse"
+              href="#table-edit-buttons"
+              role="button"
+              class="collapsed"
+            >
+              <h6
+                class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+              >
+                Edit/Delete Table<svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-chevron-down"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </h6>
+            </a>
+            <div id="table-edit-buttons" class="collapse">
+              <div>
+                <select
+                  name="deaprtment-select"
+                  id="departmentSelect"
+                  class="custom-select mb-2 mt-3 department-select"
+                ></select>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary btn-sm edit-btn"
+                  id="departmentEditBtn"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm edit-btn"
+                  id="departmentDeleteBtn"
+                >
+                  Delete
+                </button>
+              </div>
+
+              <div>
+                <select
+                  name="location-select"
+                  id="locationSelect"
+                  class="custom-select mb-2 mt-3 location-select"
+                ></select>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary btn-sm edit-btn"
+                  id="locationEditBtn"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm edit-btn"
+                  id="locationDeleteBtn"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 pt-3">
+          <div
+            id="cardDisplay"
+            class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
+          ></div>
+        </main>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="editModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-light">
+            <h5 class="modal-title" id="editModalTitle"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <div class="row">
+                <div class="col">
+                  <label
+                    for="editFirstName"
+                    class="col-form-label col-form-label-sm"
+                    >First Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="editFirstName"
+                    placeholder="First name"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editLastName"
+                    class="col-form-label col-form-label-sm"
+                    >Last Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="editLastName"
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label
+                    for="editTitle"
+                    class="col-form-label col-form-label-sm"
+                    >Job Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="editTitle"
+                    placeholder="Job Title"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editEmail"
+                    class="col-form-label col-form-label-sm"
+                    >Email</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="editEmail"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label
+                    for="departmentEditSelect"
+                    class="col-form-label col-form-label-sm"
+                    >Department</label
+                  >
+                  <select
+                    name="deaprtment-edit-select"
+                    id="departmentEditSelect"
+                    class="custom-select custom-select-sm mb-2 department-select"
+                  ></select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" id="confirmEditBtn" class="btn btn-primary">
+              Confirm Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="deleteEntryModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="deleteEntryTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-light text-uppercase">
+            <h5 class="modal-title" id="deleteEntryTitle"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="deleteWarningMessage"></p>
+            <p>
+              Deleting this entry cannot be undone. To confirm please type the
+              exact name into the input and click delete.
+            </p>
+            <p id="deleteTarget"></p>
+            <input type="text" id="deleteInput" />
+            <p><small id="deleteFeedback"></small></p>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" id="deleteBtn" class="btn btn-danger">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="confirmationModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmationModalTitle"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="confirmationModalBody"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-light">
+            <h5 class="modal-title" id="addModalTitle">Add New Staff Member</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <div class="row">
+                <div class="col">
+                  <label
+                    for="addFirstName"
+                    class="col-form-label col-form-label-sm"
+                    >First Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="addFirstName"
+                    placeholder="First name"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="addLastName"
+                    class="col-form-label col-form-label-sm"
+                    >Last Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="addLastName"
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="addTitle" class="col-form-label col-form-label-sm"
+                    >Job Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="addTitle"
+                    placeholder="Job Title"
+                  />
+                </div>
+                <div class="col">
+                  <label for="addEmail" class="col-form-label col-form-label-sm"
+                    >Email</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm mb-3"
+                    id="addEmail"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label
+                    for="departmentAddSelect"
+                    class="col-form-label col-form-label-sm"
+                    >Department</label
+                  >
+                  <select
+                    name="deaprtment-add-select"
+                    id="departmentAddSelect"
+                    class="custom-select custom-select-sm mb-2 department-select"
+                  ></select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" id="confirmAddBtn" class="btn btn-primary">
+              Add Entry
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addLocationModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addLocationTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-light">
+            <h5 class="modal-title" id="addLocationTitle">Add New Location</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>New location name:</p>
+            <input
+              type="text"
+              id="newLocationName"
+              class="form-control form-control-sm mb-3"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmAddLocationBtn"
+            >
+              Add Location
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addDepartmentModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addDepartmentTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-light">
+            <h5 class="modal-title" id="addDepartmentTitle">
+              Add New Department
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>New department name:</p>
+            <input
+              type="text"
+              id="newDepartmentName"
+              class="form-control form-control-sm mb-3"
+            />
+            <p>Select location for new department:</p>
+            <select
+              id="locationAddSelect"
+              class="custom-select-sm custom-select mb-2 location-select"
+            ></select>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmAddDepartmentBtn"
+            >
+              Add Department
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editLocationModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="editLocationTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-light">
+            <h5 class="modal-title" id="editLocationTitle">Edit Location</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Edit location name:</p>
+            <input
+              type="text"
+              id="editLocationName"
+              class="form-control form-control-sm mb-3"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmEditLocationBtn"
+            >
+              Edit Location
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editDepartmentModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="editDepartmentTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-light">
+            <h5 class="modal-title" id="editDepartmentTitle">
+              Edit Department
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Edit department name:</p>
+            <input
+              type="text"
+              id="editDepartmentName"
+              class="form-control form-control-sm mb-3"
+            />
+            <p>Update department location:</p>
+            <select
+              id="locationEditSelect"
+              class="custom-select-sm custom-select mb-2 location-select"
+            ></select>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmEditDepartmentBtn"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./libs/js/jquery-3.5.1.js"></script>
+    <script src="./libs/js/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/script.js"></script>
+  </body>
+</html>

@@ -39,7 +39,7 @@ const displayResults = (results) => {
     const editButton = `<button class="btn btn-outline-primary btn-sm badge edit-btn card-btn position-absolute" onclick="editEntryModal('${firstName}', '${lastName}','${email}', '${departmentID}', '${jobTitle}', ${id})">${editIcon}</button>`;
     const deleteButton = `<button class="btn btn-sm btn-outline-danger badge delete-btn card-btn position-absolute" onclick="deletePersonnel('${firstName} ${lastName}', ${id})">${deleteIcon}</button>`;
     //Remove this line for production
-    const title = jobTitle ? jobTitle : 'Head Of ' + department;
+    const title = jobTitle ? jobTitle : department + ' staff';
     const card = `<div class="col mb-4 entry-card" id=card${id}>
       <div class="card shadow-lg bg-light h-100">
         <div class="card-body">
@@ -573,7 +573,7 @@ $(function () {
   });
 
   $(document).on('click', '.card-body', function () {
-    if ($(window).width() <= 400) {
+    if ($(window).width() <= 480) {
       const $this = $(this);
       $this.children('.card-div').slideToggle();
       $this.children('.card-btn').fadeToggle();

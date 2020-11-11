@@ -3,6 +3,23 @@ body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background-color: #eee;
+  /* height: 100vh;
+  width: 100vw; */
+}
+
+#preloader img {
+  margin-top: 30vh;
+}
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -68,10 +85,6 @@ body {
   text-transform: uppercase;
 }
 
-/*
-   * Navbar
-   */
-
 .navbar-brand {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -88,6 +101,7 @@ body {
 #tableSearch {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
+  height: 47px;
 }
 
 #searchBtn {
@@ -193,14 +207,28 @@ th {
   top: 0;
   z-index: 10;
 }
+thead th {
+  position: sticky;
+  top: 0;
+}
 
 #tableWrapper {
   display: none;
 }
 
 @media (max-width: 400px) {
-  .mobile-hide,
-  thead {
+  .card-div {
     display: none;
+  }
+
+  .card-body h4 {
+    font-size: 1.3rem !important;
+  }
+  .card-btn {
+    display: none;
+  }
+  .entry-card {
+    margin-bottom: 0.1rem !important;
+    padding: 1px 3px;
   }
 }

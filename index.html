@@ -19,6 +19,20 @@
   </head>
 
   <body>
+    <div id="preloader" class="text-center ">
+
+      <img src="./images/mysqlogo.png" alt="company logo" class="">
+      <div id="loader" class="text-center mt-2">
+       
+        <div class="spinner-border text-info text-center" role="status" id="spinner">
+          <span class="sr-only">Loading...</span>
+          
+        </div>
+        
+      </div>
+    </div>
+
+
     <nav
       class="navbar navbar-dark sticky-top bg-info flex-md-nowrap p-1 shadow"
     >
@@ -285,17 +299,17 @@
             class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
           ></div>
 
-          <div class="table-responsive" id="tableWrapper">
+          <div class="overflow-auto" id="tableWrapper">
             <table class="table table-striped table-hover" >
               <thead class="thead-dark">
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Job Title</th>
-                  <th>Email</th>
-                  <th>Department</th>
-                  <th>Location</th>
-                  <th></th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Job Title</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Location</th>
+                  <th scope="col"></th>
                 </tr>
                 <tbody id="resultsTable"></tbody>
               </thead>

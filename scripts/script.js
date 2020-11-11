@@ -1,12 +1,3 @@
-//TODO
-//Reconfigure to only use filters - remove get all?
-//Stylings - fonts, modals
-//Search functionality
-//Option to remove all personnel when removing department/location DELETE FROM personnel where departmentID =
-//Style modals
-//Remove jqXHR response text
-//Mobile display
-
 let table, activeID, activeName, activeTable;
 
 // Get details for all personnel
@@ -53,9 +44,9 @@ const displayResults = (results) => {
       <div class="card shadow-lg bg-light h-100">
         <div class="card-body">
           <h4 class="capital">${firstName} ${lastName}</h5>
-          <div class="card-div">
           <h6 class="capital">${title} </h6>
-          <p class="capital"><i>${email}</i></p>
+          <div class="card-div">
+          <p><a class="capital" href="mailto:${email}"><i>${email}</i></a></p>
           <p class="upper">${department}</p>
           <p class="upper">${location} </p>
           </div>
@@ -68,13 +59,13 @@ const displayResults = (results) => {
     const tableRow = `<tr>
     <td>${firstName}</td>
     <td>${lastName}</td>
-    <td class="mobile-hide">${title}</td>
-    <td class="mobile-hide">${email}</td>
-    <td class="mobile-hide">${department}</td>
-    <td class="mobile-hide">${location}</td>
+    <td >${title}</td>
+    <td ><a class="capital" href="mailto:${email}">${email}</a></td>
+    <td >${department}</td>
+    <td >${location}</td>
     <td>
-   <button class="btn btn-outline-primary btn-sm badge edit-btn card-btn" onclick="editEntryModal('${firstName}', '${lastName}','${email}', '${departmentID}', '${jobTitle}', ${id})">${editIcon}</button>
- <button class="btn btn-sm btn-outline-danger badge delete-btn card-btn " onclick="deletePersonnel('${firstName} ${lastName}', ${id})">${deleteIcon}</button>
+   <button class="btn btn-outline-primary btn-sm badge edit-btn " onclick="editEntryModal('${firstName}', '${lastName}','${email}', '${departmentID}', '${jobTitle}', ${id})">${editIcon}</button>
+ <button class="btn btn-sm btn-outline-danger badge delete-btn  " onclick="deletePersonnel('${firstName} ${lastName}', ${id})">${deleteIcon}</button>
     
     </td>
     </tr>`;
@@ -516,6 +507,12 @@ $(function () {
   getAllDepartments();
   getAllLocations();
 
+  $('#preloader')
+    .delay(100)
+    .slideUp('slow', () => {
+      $(this).remove();
+    });
+
   $('#filterBtn').click(applyFilters);
   $('#deselectAllBtn').click(deselectAll);
   $('#selectAllBtn').click(selectAll);
@@ -575,10 +572,11 @@ $(function () {
     $('#cardDisplay').slideToggle(300);
   });
 
-  // $(document).on('click', '.entry-card', function () {
-  //   console.log('click');
-  //   const $this = $(this);
-  //   console.log($this);
-  //   console.log($this.data('info'));
-  // });
+  $(document).on('click', '.card-body', function () {
+    if ($(window).width() <= 400) {
+      const $this = $(this);
+      $this.children('.card-div').slideToggle();
+      $this.children('.card-btn').fadeToggle();
+    }
+  });
 });
